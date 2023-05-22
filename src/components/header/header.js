@@ -5,13 +5,16 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoginData } from '../../actions/loginAction.js';
+import Popup from "reactjs-popup";
+import '../../css/header.css';
 
 const Header = ({ cartItems }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [numberOfItem, setNumberOfItem] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -19,10 +22,6 @@ const Header = ({ cartItems }) => {
     setIsLoggedIn(false);
     setUsername("");
     setPassword("");
-  };
-
-  const handleLogin = () => {
-    setShowModal(true);
   };
 
   const handleGoBack = () => {
@@ -34,40 +33,47 @@ const Header = ({ cartItems }) => {
   }
 
   const SET_STATE = 'set_state'
-  const setState = state =>{
+  const setState = state => {
     return {
-      setState : !state
+      setState: !state
     }
   }
-const openPopUpLogin = () => {
-  dispatch(setState)
-}
-
-
-
-
   return (
     <>
-      <div className='buttonBackLog'>
-        <button className='btn back' onClick={handleGoBack}>
-          <i className="bi display-7 bi-lg bi-arrow-left"></i>
-        </button>
-
-        {isLoggedIn ? (
-          <button onClick={handleLogout} className='btn back'>
-            <i className="bi bi-door-open"></i>
+      <nav className="navbar navbar-light bg-light narbar-icons">
+        <div className='buttonBackLog'>
+          <button className='btn back' onClick={handleGoBack}>
+            <i className="bi display-7 bi-lg bi-arrow-left"></i>
           </button>
-        ) : (
-          <button onClick={openPopUpLogin} className='btn back'>
-            <i className="bi bi-door-closed"></i>
-          </button>
-        )}
-      </div>
-      <LoginPopup/>
-
-      <nav className="navbar navbar-expand-lg navbar-light bg-light narbar-icons">
-        <div className="navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav row navbarHeader">
+          {isLoggedIn ? (
+            <Popup modal trigger={<button className='btn back'>
+              <i className="bi bi-door-open"></i>
+            </button>}>
+              {close => <LoginPopup close={close} />}
+            </Popup>
+          ) : (
+            <button onClick={handleLogout} className='btn back'>
+              <i className="bi bi-door-closed"></i>
+            </button>
+          )}
+        </div>
+        <h5 className='number'>Xịn Shop</h5>
+        <div>
+          <form className="form-inline">
+            <button className='btn shopping-cart'>
+              <Link to="/cart">
+                <i className="fa fa-shopping-cart "></i>
+              </Link>
+              <Link to="/cart" className="number mu" >
+                {numberOfItem && numberOfItem.length ? numberOfItem.length : "0"}
+              </Link>
+            </button>
+          </form>
+        </div>
+      </nav>
+      <nav className="navbar navbar-light bg-light" >
+        <div className="navbar-collapse" >
+          <ul className="navbar-nav row navbarHeader"id="header">
             <li className="nav-item active col-3">
               <Link to="/home" className="nav-link headerText">
                 Home <span className="sr-only">(current)</span>

@@ -4,7 +4,7 @@ import Popup from "reactjs-popup";
 import { setLoginData } from '../../actions/loginAction.js';
 import { useSelector, useDispatch } from 'react-redux';
 
-function LoginPopUp() {
+function LoginPopUp({ close }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     // const [showModal, setShowModal] = useState(false);
@@ -27,17 +27,11 @@ function LoginPopUp() {
     //   };
 
     return (
-        <Popup
-            modal
-            closeOnDocumentClick
-            className="modal"
-            contentStyle={{ maxWidth: "600px", width: "90%" }}
-            // open={showModal}
-            // onClose={handleCloseModal}
+        <div
         >
             <div className="model">
                 <h4>Đăng nhập</h4>
-                <form 
+                <form
                 // onSubmit={handleLoginSubmit}
                 >
                     <div>
@@ -45,9 +39,9 @@ function LoginPopUp() {
                         <input
                             className="dangNhap"
                             type="text"
-                            // value={username}
-                            // onChange={(e) => setUsername(e.target.value)}
-                            // required
+                        // value={username}
+                        // onChange={(e) => setUsername(e.target.value)}
+                        // required
                         />
                     </div>
                     <div>
@@ -55,15 +49,15 @@ function LoginPopUp() {
                         <input
                             className="matKhau"
                             type="password"
-                            // value={password}
-                            // onChange={(e) => setPassword(e.target.value)}
-                            // required
+                        // value={password}
+                        // onChange={(e) => setPassword(e.target.value)}
+                        // required
                         />
                     </div>
                     <Button type="submit">Đăng nhập</Button>
                 </form>
             </div>
-        </Popup>
+        </div>
     );
 };
 

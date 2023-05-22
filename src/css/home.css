@@ -1,0 +1,35 @@
+.home {
+    background-image: url('../static/homeImage.jpg');
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    rotate: 0deg;
+    width: 100vw;
+    height: 100vh; 
+  }
+
+  .homeContainer{
+    margin-top: 130%;
+    width: 200px;
+    margin-left: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(196, 214, 213, 0.666);
+    color: white;
+    rotate: 0deg;
+    transform: scaleX(1);
+  }
+
+  .homeContainer button:hover {
+    background-color: rgb(225, 225, 225);
+    color: #121619;
+  }
+  .homeContainer button {
+    background-color: white;
+    color: #121619;
+    margin-bottom: 20px;
+  }
