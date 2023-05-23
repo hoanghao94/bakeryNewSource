@@ -12,6 +12,7 @@
 }
 
 .number.mu {
+    text-decoration: none;
     position: absolute;
     top: -2px;
     right: -3px;
