@@ -1,10 +1,8 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect,useContext  } from 'react';
 import MenuItem from './menuItem.js';
-import { MenuList } from '../../data/MenuList.js';
-
+import { MenuContext } from './menuContext.js';
 function Menu() {
-    const [menuListClone, setMenuListClone] = useState([]);
-    setMenuListClone(MenuList);
+    const { menuListClone } = useContext(MenuContext);
     return (
         <div>
             <div className='row'>

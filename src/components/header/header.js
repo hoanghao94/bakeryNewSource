@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginPopup from './loginPopUp';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { setLoginData } from '../../actions/loginAction.js';
 import Popup from "reactjs-popup";
 import '../../css/header.css';
+import { MenuContext } from '../../components/menu/menuContext';
 
-const Header = ({ cartItems }) => {
+const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [numberOfItem, setNumberOfItem] = useState([]);
-
-  const dispatch = useDispatch();
+  const [numberOfItem, setNumberOfItem] = useState(0);
+  const { menuListClone } = useContext(MenuContext);
+  useEffect(() => {
+    let numberOfQuantity = 0;
+    menuListClone.map((product) => {
+      if (product.quantity) {
+        numberOfQuantity++;
+      }
+    });
+    setNumberOfItem(numberOfQuantity);
+  }, [menuListClone]);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -32,12 +39,16 @@ const Header = ({ cartItems }) => {
     state: false
   }
 
-  const SET_STATE = 'set_state'
+  const SET_STATE = 'set_state';
   const setState = state => {
     return {
       setState: !state
     }
-  }
+  };
+
+
+
+
   return (
     <>
       <nav className="navbar navbar-light bg-light narbar-icons">
@@ -65,7 +76,7 @@ const Header = ({ cartItems }) => {
                 <i className="fa fa-shopping-cart "></i>
               </Link>
               <Link to="/cart" className="number mu" >
-                {numberOfItem && numberOfItem.length ? numberOfItem.length : "0"}
+                {numberOfItem !== 0 ? numberOfItem : "0"}
               </Link>
             </button>
           </form>
@@ -73,7 +84,7 @@ const Header = ({ cartItems }) => {
       </nav>
       <nav className="navbar navbar-light bg-light" >
         <div className="navbar-collapse" >
-          <ul className="navbar-nav row navbarHeader"id="header">
+          <ul className="navbar-nav row navbarHeader" id="header">
             <li className="nav-item active col-3">
               <Link to="/home" className="nav-link headerText">
                 Home <span className="sr-only">(current)</span>
@@ -85,8 +96,8 @@ const Header = ({ cartItems }) => {
               </Link>
             </li>
             <li className="nav-item col-3">
-              <Link to="/cart" className="nav-link headerText">
-                Pricing
+              <Link to="/payment" className="nav-link headerText">
+                Payment
               </Link>
             </li>
             {isLoggedIn && (
