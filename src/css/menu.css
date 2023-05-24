@@ -129,3 +129,14 @@
     margin-bottom: 10px;
     padding: 0;
   }
+
+  .model{
+    background-color: aliceblue;
+  }
+
+  .lable{
+    margin-right: 70px;
+  }
+  .lableMK{
+    margin-right: 40px;
+  }

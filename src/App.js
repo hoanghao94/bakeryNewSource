@@ -6,6 +6,7 @@ import Home from './components/home/home.js';
 import Menu from './components/menu/menu.js'
 import { MenuProvider } from './components/menu/menuContext';
 import Payment from './components/payment/payment';
+import Summary from './components/summary/summary';
 function App() {
 
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/table" element={<Summary />} />
         </Routes>
       </MenuProvider>
     </Router>

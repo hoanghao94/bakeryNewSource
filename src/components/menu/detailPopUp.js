@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from "react-bootstrap";
 
-function DetailPopUp({ name,image, quantity, handleBuyClick }) {
+function DetailPopUp({ name, image, quantity, handleBuyClick }) {
     return (
         <div className="model-pop-up">
             <div className="menuItemPopUp">
@@ -16,10 +16,13 @@ function DetailPopUp({ name,image, quantity, handleBuyClick }) {
                     the 1500s
                 </p>
                 <div className="mua-dong">
-                    <Button onClick={handleBuyClick}>
-                        {!quantity && <>Mua</>}
-                        {quantity && <>Đã mua!</>}
+                    <Button
+                        className="btn btn-light border border-secondary"
+                        onClick={handleBuyClick}
+                    >
+                        {(quantity === 0 || !quantity) ? "Mua" : "Đã mua!"}
                     </Button>
+
                 </div>
             </div>
         </div>

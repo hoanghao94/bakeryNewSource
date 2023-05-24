@@ -3,55 +3,55 @@ import { Button } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import { setLoginData } from '../../actions/loginAction.js';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 function LoginPopUp({ close }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    // const [showModal, setShowModal] = useState(false);
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // const dispatch = useDispatch();
+    const [login, isLogin] = useState(false);
 
-    // const handleCloseModal = () => {
-    //     setShowModal(false);
-    // };
-    // const handleLoginSubmit = (e) => {
-    //     e.preventDefault();
-    //     dispatch(setLoginData(loginData.username, loginData.password));
-    //     setIsLoggedIn(true);
-    //     closeLoginModal();
-    // };
-    // const loginData = useSelector(state => state.login);
+    const handleLoginSubmit = (e) => {
+        e.preventDefault();
+    
+    };
+    const customerDTO = {
+        userName: username,
+        password: password,
+    };
 
-    // const closeLoginModal = () => {
-    //     setShowModal(false);
-    //   };
+    axios.post('http://localhost:8081/http://localhost:8080/api/buy', customerDTO)
+            .then(response => {
+                isLogin(true);
+            })
+            .catch(error => {
+                console.error(error);
+            });
 
     return (
-        <div
-        >
-            <div className="model">
+        <div>
+            <div className="model p-3">
                 <h4>Đăng nhập</h4>
                 <form
-                // onSubmit={handleLoginSubmit}
+                    onSubmit={handleLoginSubmit}
                 >
                     <div>
                         <label>Tên đăng nhập:</label>
                         <input
-                            className="dangNhap"
+                            className="dangNhap mb-3"
                             type="text"
-                        // value={username}
-                        // onChange={(e) => setUsername(e.target.value)}
-                        // required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
                         />
                     </div>
-                    <div>
-                        <label>Mật khẩu:</label>
+                    <div className='d-flex'>
+                        <div className='lableMK'><label >Mật khẩu:</label></div>
                         <input
-                            className="matKhau"
+                            className="matKhau mb-3"
                             type="password"
-                        // value={password}
-                        // onChange={(e) => setPassword(e.target.value)}
-                        // required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </div>
                     <Button type="submit">Đăng nhập</Button>

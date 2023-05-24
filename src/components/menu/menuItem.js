@@ -50,8 +50,7 @@ function MenuItem({ image, name, price, quantity }) {
         className="btn btn-light border border-secondary"
         onClick={handleBuyClick}
       >
-        {!quantity && <>Mua</>}
-        {quantity && <>Đã mua!</>}
+        {(quantity === 0 || !quantity) ? "Mua" : "Đã mua!"}
       </Button>
 
 
