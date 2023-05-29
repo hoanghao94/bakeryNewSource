@@ -8,8 +8,7 @@ import '../../css/header.css';
 import { MenuContext } from '../../components/menu/menuContext';
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const {isLoggedIn, setIsLoggedIn} = useContext(MenuContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -47,8 +46,6 @@ const Header = () => {
   };
 
 
-
-
   return (
     <>
       <nav className="navbar navbar-light bg-light narbar-icons">
@@ -56,7 +53,7 @@ const Header = () => {
           <button className='btn back' onClick={handleGoBack}>
             <i className="bi display-7 bi-lg bi-arrow-left"></i>
           </button>
-          {isLoggedIn ? (
+          {!isLoggedIn ? (
             <Popup modal trigger={<button className='btn back'>
               <i className="bi bi-door-open"></i>
             </button>}>

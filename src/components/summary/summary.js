@@ -12,7 +12,6 @@ function Summary() {
         const apiUrl = 'http://localhost:8080/api/buying'; 
         const response = await fetch(proxyUrl + apiUrl);
         const jsonData = await response.json();
-        console.log(jsonData);
         setData(jsonData);
     }
 

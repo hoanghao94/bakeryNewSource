@@ -1,64 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button } from "react-bootstrap";
-import Popup from "reactjs-popup";
-import { setLoginData } from '../../actions/loginAction.js';
-import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { MenuContext } from '../../components/menu/menuContext';
 
-function LoginPopUp({ close }) {
+function LoginPopUp({ }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [login, isLogin] = useState(false);
+    const [loginSuccess, setLoginSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const { setIsLoggedIn } = useContext(MenuContext);
 
     const handleLoginSubmit = (e) => {
         e.preventDefault();
-    
-    };
-    const customerDTO = {
-        userName: username,
-        password: password,
-    };
 
-    axios.post('http://localhost:8081/http://localhost:8080/api/buy', customerDTO)
+        const customerDTO = {
+            userName: username,
+            password: password,
+        };
+
+        axios.post('http://localhost:8081/http://localhost:8080/api/check-login-accounts', customerDTO)
             .then(response => {
-                isLogin(true);
+                setLoginSuccess(true);
+                setIsLoggedIn(true);
+                setErrorMessage('');
             })
             .catch(error => {
-                console.error(error);
+                setLoginSuccess(false);
+                setErrorMessage('Sai tên đăng nhập hoặc mật khẩu');
             });
+    };
 
     return (
         <div>
             <div className="model p-3">
-                <h4>Đăng nhập</h4>
-                <form
-                    onSubmit={handleLoginSubmit}
-                >
+                {loginSuccess ? (
+                    <div className='text-success'>
+                        <h4>Đăng nhập thành công</h4>
+                    </div>
+                ) : (
                     <div>
-                        <label>Tên đăng nhập:</label>
-                        <input
-                            className="dangNhap mb-3"
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
+                        <h4>Đăng nhập</h4>
+                        <form onSubmit={handleLoginSubmit}>
+                            <div>
+                                <label>Tên đăng nhập:</label>
+                                <input
+                                    className="dangNhap mb-3"
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className='d-flex'>
+                                <div className='lableMK'><label>Mật khẩu:</label></div>
+                                <input
+                                    className="matKhau mb-3"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <Button type="submit">Đăng nhập</Button>
+                            {errorMessage && <p>{errorMessage}</p>}
+                        </form>
                     </div>
-                    <div className='d-flex'>
-                        <div className='lableMK'><label >Mật khẩu:</label></div>
-                        <input
-                            className="matKhau mb-3"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <Button type="submit">Đăng nhập</Button>
-                </form>
+                )}
             </div>
         </div>
     );
 };
 
-export default LoginPopUp
+export default LoginPopUp;
