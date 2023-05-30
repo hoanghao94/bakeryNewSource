@@ -8,7 +8,7 @@ import Payment from './components/payment/payment';
 import Summary from './components/summary/summary';
 
 function App() {
-  const { isLoggedIn,setIsLoggedIn  } = useContext(MenuContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(MenuContext);
   setIsLoggedIn(true);
 
   return (
@@ -16,6 +16,7 @@ function App() {
       <MenuProvider>
         <Header />
         <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/payment" element={<Payment />} />

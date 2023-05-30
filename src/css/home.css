@@ -33,3 +33,10 @@
     color: #121619;
     margin-bottom: 20px;
   }
+  .home {
+    @media (min-width: 390px) {
+      max-width: 390px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
