@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/bakeryNewSource/static/css/main.9dd8947a.css",
+    "main.js": "/bakeryNewSource/static/js/main.f9c287d6.js",
+    "static/js/787.a052e9e4.chunk.js": "/bakeryNewSource/static/js/787.a052e9e4.chunk.js",
+    "static/media/Thanh.jpg": "/bakeryNewSource/static/media/Thanh.30f85820621a7ecbe9ca.jpg",
+    "static/media/CuDen.jpg": "/bakeryNewSource/static/media/CuDen.89fac372dff9c619d421.jpg",
+    "static/media/homeImage.jpg": "/bakeryNewSource/static/media/homeImage.bdd66d957e3dcf663f61.jpg",
+    "static/media/bootstrap-icons.woff?": "/bakeryNewSource/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
+    "static/media/SuaChua.jpg": "/bakeryNewSource/static/media/SuaChua.6d9e92539abd3b7c76c6.jpg",
+    "static/media/Trung.jpg": "/bakeryNewSource/static/media/Trung.d9d91b99b4929e57876e.jpg",
+    "static/media/bootstrap-icons.woff2?": "/bakeryNewSource/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
+    "static/media/ThapCam.jpg": "/bakeryNewSource/static/media/ThapCam.0f389c25c6e809865118.jpg",
+    "static/media/ThanhLong.jpg": "/bakeryNewSource/static/media/ThanhLong.8828d1324ccc9ef42977.jpg",
+    "index.html": "/bakeryNewSource/index.html",
+    "main.9dd8947a.css.map": "/bakeryNewSource/static/css/main.9dd8947a.css.map",
+    "main.f9c287d6.js.map": "/bakeryNewSource/static/js/main.f9c287d6.js.map",
+    "787.a052e9e4.chunk.js.map": "/bakeryNewSource/static/js/787.a052e9e4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9dd8947a.css",
+    "static/js/main.f9c287d6.js"
+  ]
+}
