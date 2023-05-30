@@ -1,12 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button } from "react-bootstrap";
 import axios from 'axios';
 import { MenuContext } from '../../components/menu/menuContext';
 
-function LoginPopUp({ }) {
+function LoginPopUp() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginSuccess, setLoginSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const { setIsLoggedIn } = useContext(MenuContext);
 
@@ -20,12 +19,12 @@ function LoginPopUp({ }) {
 
         axios.post('http://localhost:8081/http://localhost:8080/api/check-login-accounts', customerDTO)
             .then(response => {
-                setLoginSuccess(true);
+                const token = response.data.token;
+                localStorage.setItem('token', token);
                 setIsLoggedIn(true);
                 setErrorMessage('');
             })
             .catch(error => {
-                setLoginSuccess(false);
                 setErrorMessage('Sai tên đăng nhập hoặc mật khẩu');
             });
     };
@@ -33,11 +32,7 @@ function LoginPopUp({ }) {
     return (
         <div>
             <div className="model p-3">
-                {loginSuccess ? (
-                    <div className='text-success'>
-                        <h4>Đăng nhập thành công</h4>
-                    </div>
-                ) : (
+                {!errorMessage && (
                     <div>
                         <h4>Đăng nhập</h4>
                         <form onSubmit={handleLoginSubmit}>
@@ -62,10 +57,10 @@ function LoginPopUp({ }) {
                                 />
                             </div>
                             <Button type="submit">Đăng nhập</Button>
-                            {errorMessage && <p>{errorMessage}</p>}
                         </form>
                     </div>
                 )}
+                {errorMessage && <p>{errorMessage}</p>}
             </div>
         </div>
     );

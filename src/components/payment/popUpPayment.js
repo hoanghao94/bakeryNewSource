@@ -4,47 +4,65 @@ import { Button } from "react-bootstrap";
 import '../../css/menu.css';
 
 function PopUpPayment({ cartItems }) {
-    const [buyerName, setBuyerName] = useState("");
-    const [phone, setPhone] = useState("");
+    const [buyerName, setBuyerName] = useState('');
+    const [phone, setPhone] = useState('');
     const [isBuy, setIsBuy] = useState(false);
 
-    const handleBuySubmit = (e) => {
+    const handleBuySubmit = (e, paymentType) => {
         e.preventDefault();
         const listCakeDTO = [];
         cartItems.forEach((cartItem) => {
-          if (cartItem.quantity !== undefined && cartItem.quantity !== 0) {
-            const CakeDTO = {
-              nameCake: cartItem.name,
-              price: cartItem.price,
-              quantity: cartItem.quantity,
-            };
-            listCakeDTO.push(CakeDTO);
-          }
+            if (cartItem.quantity !== undefined && cartItem.quantity !== 0) {
+                const CakeDTO = {
+                    nameCake: cartItem.name,
+                    price: cartItem.price,
+                    quantity: cartItem.quantity,
+                };
+                listCakeDTO.push(CakeDTO);
+            }
         });
-        
+
         const customerDTO = {
             name: buyerName,
             phoneNumber: phone,
-            dateBuy: Date
+            dateBuy: Date,
         };
 
         const data = {
             cakeDTOList: listCakeDTO,
-            customerDTO: customerDTO
+            customerDTO: customerDTO,
         };
 
-        axios.post('http://localhost:8081/http://localhost:8080/api/buy', data)
-            .then(response => {
-                setIsBuy(true);
-            })
-            .catch(error => {
-                console.error(error);
-            })
-            .finally(() => {
-                setBuyerName("");
-                setPhone("");
-            });
-    }
+        if (paymentType === 'tra-truoc') {
+            axios
+                .get('http://localhost:8081/http://localhost:8080/api/payment/create_payment', data)
+                .then((response) => {
+                    const { url } = response.data;
+                    setIsBuy(true);
+                    window.open(url, '_blank');
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setBuyerName('');
+                    setPhone('');
+                });
+        } else {
+            axios
+                .post('http://localhost:8081/http://localhost:8080/api/buy', data)
+                .then((response) => {
+                    setIsBuy(true);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setBuyerName('');
+                    setPhone('');
+                });
+        }
+    };
 
     return (
         <>
@@ -56,27 +74,36 @@ function PopUpPayment({ cartItems }) {
                             <div>
                                 <label>Tên người mua:</label>
                                 <input
-                                    className='mb-2'
+                                    className="mb-2"
                                     type="text"
                                     value={buyerName}
                                     onChange={(e) => setBuyerName(e.target.value)}
                                 />
                             </div>
-                            <div className='d-flex'>
-                                <div className='lable'><label>SĐT:*</label></div>
+                            <div className="d-flex">
+                                <div className="lable">
+                                    <label>SĐT:*</label>
+                                </div>
                                 <input
-                                    className='mb-2'
+                                    className="mb-2"
                                     type="phone"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
                                     required
                                 />
                             </div>
-                            <Button type="submit">Mua</Button>
+                            <div className="d-flex">
+                                <Button type="submit" onClick={(e) => handleBuySubmit(e, 'tra-truoc')}>
+                                    Mua Trả Trước
+                                </Button>
+                                <Button type="submit" onClick={(e) => handleBuySubmit(e, 'tra-sau')}>
+                                    Mua Trả Sau
+                                </Button>
+                            </div>
                         </form>
                     </div>
                 ) : (
-                    <h3 className='text-danger'>Mua thành công</h3>
+                    <h3 className="text-danger">Mua thành công</h3>
                 )}
             </div>
         </>

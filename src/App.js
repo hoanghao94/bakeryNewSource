@@ -8,14 +8,15 @@ import Payment from './components/payment/payment';
 import Summary from './components/summary/summary';
 
 function App() {
-  const { isLoggedIn,setIsLoggedIn  } = useContext(MenuContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(MenuContext);
   setIsLoggedIn(true);
-
+ 
   return (
     <Router>
       <MenuProvider>
         <Header />
         <Routes>
+        <Route path="/bakeryNewSource" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/payment" element={<Payment />} />
@@ -25,5 +26,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;
